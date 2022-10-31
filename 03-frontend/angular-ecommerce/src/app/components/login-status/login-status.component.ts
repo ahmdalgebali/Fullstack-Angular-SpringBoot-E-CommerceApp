@@ -28,6 +28,7 @@ export class LoginStatusComponent implements OnInit {
   
   getUserDetails() {
     if (this.isAuthenticated) {
+
       // Fetch the logged in user details (user's claims)
       //
       // user full name is exposed as a property name
