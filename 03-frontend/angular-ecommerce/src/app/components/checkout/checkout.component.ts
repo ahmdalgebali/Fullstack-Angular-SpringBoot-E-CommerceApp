@@ -35,7 +35,8 @@ export class CheckoutComponent implements OnInit {
               private luv2ShopFormService: Luv2ShopFormService,
               private cartService: CartService,
               private checkoutService: CheckoutService,
-              private router: Router) { }
+              private router: Router) {
+               }
 
   ngOnInit(): void {
     
@@ -155,18 +156,18 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  copyShippingAddressToBillingAddress(event: { target: { checked: any; }; }) {
+  copyShippingAddressToBillingAddress(checked: boolean) {
 
-    if (event.target.checked) {
-      this.checkoutFormGroup.controls['billingAddress']
-            .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+    if (checked) {
+      this.checkoutFormGroup.controls?.['billingAddress']
+            .setValue(this.checkoutFormGroup.controls?.['shippingAddress'].value);
 
       // bug fix for states
       this.billingAddressStates = this.shippingAddressStates;
 
     }
     else {
-      this.checkoutFormGroup.controls['billingAddress'].reset();
+      this.checkoutFormGroup.controls?.['billingAddress'].reset();
 
       // bug fix for states
       this.billingAddressStates = [];
@@ -183,9 +184,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     // set up order
-    let order = new Order();
-    order.totalPrice = this.totalPrice;
-    order.totalQuantity = this.totalQuantity;
+    let order = new Order(this.totalQuantity, this.totalPrice);
 
     // get cart items
     const cartItems = this.cartService.cartItems;
@@ -200,7 +199,7 @@ export class CheckoutComponent implements OnInit {
     */
 
     // - short way of doing the same thingy
-    let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
+    let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem.imageUrl!, tempCartItem.unitPrice!, tempCartItem.quantity, tempCartItem.id!));
 
     // set up purchase
     let purchase = new Purchase();

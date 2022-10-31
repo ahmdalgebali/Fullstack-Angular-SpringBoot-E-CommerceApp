@@ -16,7 +16,7 @@
 
                                 <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="alert alert-danger mt-1">
 
-                                    <div *ngIf="firstName?.errors?.['required']|| firstName?.errors?.['notOnlyWhitespace']">
+                                    <div *ngIf="firstName?.errors?.['required'] || firstName?.errors?.['notOnlyWhitespace']">
                                         First Name is required
                                     </div>
 
@@ -181,7 +181,7 @@
                 <!-- Add check box to copy shipping to billing -->
                 <div class="input-space">
                     <label class="au-checkbox">
-                        <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
+                        <input type="checkbox" (change)="copyShippingAddressToBillingAddress($any($event).target.value)">
                         <span class="au-checkmark"></span>Billing Address same as Shipping Address
                     </label>
                 </div>
